@@ -21,7 +21,7 @@ public class QuestionController {
     }
 
     @GetMapping("category/{category}")
-    public List<Question> getQuestionByCategory(@PathVariable String category) {
+    public ResponseEntity<List<Question>> getQuestionByCategory(@PathVariable String category) {
         return questionService.getQuestionByCategory(category);
     }
 
@@ -31,17 +31,17 @@ public class QuestionController {
     }*/
 
     @PostMapping("add")
-    public String addQuestion(@RequestBody Question question) {
+    public ResponseEntity<String>  addQuestion(@RequestBody Question question) {
         return questionService.addQuestion(question);
     }
 
     @DeleteMapping("delete")
-    public String deleteQuestion(@RequestBody Question question) {
+    public ResponseEntity<String>  deleteQuestion(@RequestBody Question question) {
         return questionService.deleteQuestion(question);
     }
 
     @PutMapping("update")
-    public String updateQuestion(@RequestBody Question question) {
+    public ResponseEntity<String> updateQuestion(@RequestBody Question question) {
         return questionService.updateQuestion(question);
     }
 }

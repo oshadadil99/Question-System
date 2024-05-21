@@ -23,26 +23,47 @@ public class QuestionService {
         return new ResponseEntity<>(new ArrayList<>(),HttpStatus.BAD_REQUEST);
     }
 
-    public List<Question> getQuestionByCategory(String category) {
-        return questionDao.findByCategory(category);
+    public ResponseEntity<List<Question>> getQuestionByCategory(String category) {
+        try{
+            return new ResponseEntity<>(questionDao.findAll(), HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ResponseEntity<>(new ArrayList<>(),HttpStatus.BAD_REQUEST);
     }
 
    /* public List<Question> getQuestionByDifficulty(String difficulty) {
         return questionDao.findByDifficulty(difficulty);
     } */
 
-    public String addQuestion(Question question) {
-        questionDao.save(question);
-        return "success";
+    public ResponseEntity<String> addQuestion(Question question) {
+        try {
+            questionDao.save(question);
+            return new ResponseEntity<>("success",HttpStatus.CREATED) ;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ResponseEntity<>("fail",HttpStatus.BAD_REQUEST) ;
     }
 
-    public String deleteQuestion(Question question) {
-        questionDao.delete(question);
-        return "deleted";
+    public ResponseEntity<String> deleteQuestion(Question question) {
+        try {
+            questionDao.delete(question);
+            return new  ResponseEntity<> ("deleted", HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ResponseEntity<>("Failed",HttpStatus.BAD_REQUEST);
     }
 
-    public String updateQuestion(Question question) {
-        questionDao.save(question);
-        return "updated";
+    public ResponseEntity<String> updateQuestion(Question question) {
+        try {
+            questionDao.save(question);
+            return new ResponseEntity<>("updated",HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ResponseEntity<>("Failed",HttpStatus.BAD_REQUEST);
+       
     }
 }
