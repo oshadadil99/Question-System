@@ -1,6 +1,6 @@
 package com.oshada.quizapp.service;
 
-import com.oshada.quizapp.Question;
+import com.oshada.quizapp.model.Question;
 import com.oshada.quizapp.dao.QuestionDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 @Service
 public class QuestionService {
@@ -23,18 +24,22 @@ public class QuestionService {
         return new ResponseEntity<>(new ArrayList<>(),HttpStatus.BAD_REQUEST);
     }
 
-    public ResponseEntity<List<Question>> getQuestionByCategory(String category) {
+    /*public ResponseEntity<List<Question>> getQuestionByCategory(String category) {
         try{
-            return new ResponseEntity<>(questionDao.findAll(), HttpStatus.OK);
+            return new ResponseEntity<>(questionDao.findByCategory(category), HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return new ResponseEntity<>(new ArrayList<>(),HttpStatus.BAD_REQUEST);
+    } */
+
+    public List<Question> getQuestionByCategory(String category) {
+        return questionDao.findByCategory(category);
     }
 
-   /* public List<Question> getQuestionByDifficulty(String difficulty) {
-        return questionDao.findByDifficulty(difficulty);
-    } */
+   public List<Question> getQuestionByDifficulty(String option3) {
+        return questionDao.findByOption3(option3);
+    }
 
     public ResponseEntity<String> addQuestion(Question question) {
         try {
@@ -64,6 +69,6 @@ public class QuestionService {
             e.printStackTrace();
         }
         return new ResponseEntity<>("Failed",HttpStatus.BAD_REQUEST);
-       
+
     }
 }

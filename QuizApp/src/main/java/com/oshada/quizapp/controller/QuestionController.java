@@ -1,6 +1,6 @@
 package com.oshada.quizapp.controller;
 
-import com.oshada.quizapp.Question;
+import com.oshada.quizapp.model.Question;
 import com.oshada.quizapp.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,14 +21,14 @@ public class QuestionController {
     }
 
     @GetMapping("category/{category}")
-    public ResponseEntity<List<Question>> getQuestionByCategory(@PathVariable String category) {
+    public List<Question> getQuestionByCategory(@PathVariable String category) {
         return questionService.getQuestionByCategory(category);
     }
 
-     /*@GetMapping("option3/{difficulty}")
-    public List<Question> getQuestionByDifficulty(@PathVariable String difficulty) {
-        return questionService.getQuestionByDifficulty(difficulty);
-    }*/
+     @GetMapping("option3/{option3}")
+    public List<Question> getQuestionByDifficulty(@PathVariable String option3) {
+        return questionService.getQuestionByDifficulty(option3);
+    }
 
     @PostMapping("add")
     public ResponseEntity<String>  addQuestion(@RequestBody Question question) {
